@@ -5,7 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include './boot.php' ?>
+    <style>
+    .products::-webkit-scrollbar {
+        width: 0;
+        height: 0;
 
+    }
+    </style>
 </head>
 
 <body>
@@ -49,46 +55,24 @@
 
     <div class="container-fluid position-relative p-0">
 
-        <nav style=""
-            class="d-flex z-3 custom-navbar  rounded-4 position-absolute   p-sm-3 p-2 text-white gap-5 justify-content-lg-center justify-content-between align-items-center">
-            <i class="bi bi-list list-icon fs-2 d-block d-lg-none"></i>
-            <img src="https://techhunk.pk/cdn/shop/files/logo_1.png?v=1756293749&width=280" width="100px" alt="">
-            <ul class="list-unstyled d-none d-lg-flex gap-4 m-0">
-                <li>Home</li>
-                <li>Earbuds</li>
-                <li>Smart Watches</li>
-                <li>Projectors</li>
-                <a href="./sameer.php">
-                    <li>Accessories</li>
-                </a>
-                <li>Support</li>
-            </ul>
-            <div class="d-flex gap-3">
-                <i class="bi fs-4 bi-search"></i>
-                <a href="./register.php">
-                    <i class="bi fs-4 bi-person"></i>
-                </a>
-                <i class="bi fs-4 bi-bag"></i>
-            </div>
-
-        </nav>
+        <?php include './navbar.php' ?>
 
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img width="100%" height="80%"
+                <div class="carousel-item active" style="height:80vh">
+                    <img width="100%" height="100%"
                         src="https://techhunk.pk/cdn/shop/files/gen_3ookppc_11zon.webp?v=1757525647&width=3840"
                         class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img width="100%" height="80%"
+                <div class="carousel-item" style="height:80vh">
+                    <img width="100%" height="100%"
                         src="https://techhunk.pk/cdn/shop/files/gen_3_pcok_11zon.webp?v=1757521393&width=3840"
                         class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img width="100%" height="80%"
+                <div class="carousel-item" style="height:80vh">
+                    <img width="100%" height="100%"
                         src="https://techhunk.pk/cdn/shop/files/gen3blackout_8_11zon.webp?v=1756931012&width=1600"
-                        class="d-block w-100" alt="...">
+                        class="d-block w-100 object-fit-cover" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -106,6 +90,60 @@
 
 
     <?php include './arrivals.php' ?>
+
+
+
+    <!-- products -->
+
+    <div class="container  position-relative ">
+        <i class="bi bi-chevron-left  product-chevron top-50 left shadow-lg z-3 rounded-circle d-flex justify-content-center align-items-center fs-5"
+            style="left:-2px;"></i>
+        <i class="bi bi-chevron-right product-chevron right shadow-lg z-3 rounded-circle d-flex justify-content-center align-items-center  fs-5"
+            style="right:0px;top:50%;"></i>
+        <div class="d-flex gap-4 products  overflow-x-scroll my-5">
+
+            <?php 
+                include './config.php';
+                $products = "SELECT * FROM products";
+                $result = mysqli_query($connection,$products);
+                foreach($result as $row){
+            ?>
+
+            <div class="card flex-shrink-0 p-2 border border-dark rounded-4" style="width:300px">
+                <div class="d-flex flex-shrink-0 h-100 flex-column justify-content-between">
+                    <img src="./product_images/<?php echo $row['image'] ?>" width="100%" alt="">
+                    <h5 class="m-0 mt-3">
+                        <?php echo $row['name'] ?>
+                    </h5>
+                    <p class="m-0 text-secondary prod-desc" style="font-size:0.85rem">
+                        <?php echo $row['description'] ?>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="">
+                            ⭐⭐⭐⭐ <span class="fw-bold">4.8</span>
+                        </div>
+                        <div class="rounded-circle"
+                            style="width: 10px;height:10px;background:<?php echo $row['color'] ?>"></div>
+                    </div>
+                    <div class="d-flex justify-content-between w-100 align-items-center">
+                        <h5>Rs. <?php echo $row['discount_price'] ?></h5>
+                        <a href="./single-product.php?data=<?php echo urlencode(json_encode($row)) ?>"
+                            class="btn text-decoration-none fw-semibold text-primary">
+                            Buy Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <?php 
+                }
+            ?>
+
+        </div>
+    </div>
+
+
+
 
 
 
