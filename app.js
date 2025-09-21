@@ -39,3 +39,4 @@ document.querySelector( '.close-sidebar' ).addEventListener( 'click', () => {
 sidebar.addEventListener( 'click', ( e ) => {
     e.stopPropagation()
 } )
+

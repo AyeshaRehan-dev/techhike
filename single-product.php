@@ -145,8 +145,9 @@
                     </button>
                 </div>
                 <button class="btn btn-outline-dark w-100 mb-2 rounded-pill p-3">Add to Cart</button>
-                <button style="background-color: #0d1b3d;" class="btn text-white w-100 rounded-pill p-3">Buy it
-                    Now</button>
+                <a href="./checkout.php?data=<?php echo urlencode($data) ?>" style="background-color: #0d1b3d;"
+                    class="btn text-decoration-none text-white w-100 rounded-pill p-3">Buy it
+                    Now</a>
 
                 <!-- login offer -->
 

@@ -36,3 +36,7 @@
     transform: translateY(-50%);
 
 }
+
+.text-sm{
+    font-size: 0.7rem !important;
+}
