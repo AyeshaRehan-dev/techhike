@@ -14,10 +14,23 @@
     </ul>
     <div class="d-flex gap-3">
         <i class="bi fs-4 bi-search"></i>
-        <a href="./register.php">
-            <i class="bi fs-4 bi-person"></i>
-        </a>
         <i class="bi fs-4 bi-bag"></i>
+        <?php 
+            if(isset($_SESSION['ticket'])){
+                echo "<a href='./logout.php' class='text-decoration-none'>
+                    <i class='bi bi-power text-white fs-4'></i> <span class='text-white fs-6'>
+                        Welcome {$_SESSION['ticket']}
+                    </span> 
+                </a>";
+            }else{
+                echo "
+                <a href='./register.php'>
+                    <i class='bi text-white fs-4 bi-person'></i>
+                </a>
+                ";
+            }
+        ?>
+
     </div>
 
 </nav>

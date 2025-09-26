@@ -1,5 +1,5 @@
 <?php 
-
+    session_start();
     include './config.php';
     $contactEmail = $_POST['contactEmail'];
     $country = $_POST['country'];
@@ -13,10 +13,13 @@
     $shippingMethod = $_POST['shippingMethod'];
     $paymentMethod = $_POST['paymentMethod'];
     $billingAddress = $_POST['billingAddress'];
-    $product_info = urldecode($_POST['product_info']);
-    $product_info = json_decode($product_info);
-    $product_info = json_encode($product_info);
+   $product_info = urldecode($_POST['product_info']);
+// $product_info = json_decode($product_info, true); // decode to array
+// $product_info = json_encode($product_info, JSON_UNESCAPED_UNICODE); 
 
+    $product_info = mysqli_real_escape_string($connection,$product_info);
+
+    $currentPage = $_SERVER['HTTP_REFERER'];
 
 
 
@@ -41,6 +44,11 @@
     mysqli_query($connection,$insert);
 
 
+    // store the success message
+
+    $_SESSION['order_done'] = 'Ordered Successfully!';
+
+    header("Location: $currentPage");
 
 
 ?>

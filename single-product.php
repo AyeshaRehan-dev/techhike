@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -119,10 +122,41 @@
             <!-- Right Side Product Info -->
             <div class="col-md-6">
                 <h2> <?php echo $product_data->name ?> </h2>
-                <p><span class="discount"></span>
-                    <span class="price">Rs.
-                        <span class="discounted_price"><?php echo $product_data->discount_price ?></span></span> <span
-                        class="old-price">Rs.
+                <p>
+
+                    <?php 
+                        $newDiscount = $product_data->discount_price - ((20/100) * $product_data->discount_price);
+                        $oldDiscount = $product_data->discount_price - ((10/100) * $product_data->discount_price);
+                        if($_SESSION['ticket']){
+                            echo "<span>$newDiscount</span>";
+                        }else{
+                            echo "<span>$oldDiscount</span>";
+
+                        }
+                    ?>
+
+
+
+                    <?php 
+                        $furtherDiscount = $product_data->discount_price - ((10 / 100) * $product_data->discount_price);
+                        if(isset($_SESSION['ticket'])){
+echo "
+                            <span class='price'>Rs.
+                        <span class='further-discount'>
+                            $furtherDiscount
+                        </span>
+                    </span>
+                            ";
+                        }else{
+                            echo "
+                            <span class='price'>Rs.
+                        <span class='discounted_price'>$product_data->discount_price</span>
+                    </span>
+                            ";
+                        }
+                    ?>
+
+                    <span class="old-price">Rs.
                         <span class="actual_price"><?php echo $product_data->price ?></span>
                 </p>
                 <div class="sale my-2 d-flex justify-content-between">
@@ -151,6 +185,9 @@
 
                 <!-- login offer -->
 
+                <?php 
+                    if(!isset($_SESSION['ticket'])){
+                ?>
                 <h6 class="text-secondary-emphasis my-3">
                     Login to avail 10% more discount <a href="./register.php"
                         class="text-primary text-decoration-none">Login</a>
@@ -160,6 +197,10 @@
                     if you login this <?php echo $product_data->name ?> will cost you <span
                         class="further-discount"></span>
                 </p>
+
+                <?php }?>
+
+
 
 
 
@@ -244,6 +285,8 @@
     let actual_price = document.querySelector('.actual_price')
     let more_discount = document.querySelector('.further-discount')
 
+
+
     let discountPercentage = ((actual_price.innerHTML - discounted_price.innerHTML) / actual_price.innerHTML) * 100
 
     discount_text.forEach((item, index) => {
@@ -254,6 +297,9 @@
     let more_discount_price = discounted_price.innerHTML - ((10 / 100) * discounted_price.innerHTML)
 
     more_discount.innerHTML = `Rs. ${more_discount_price}`
+
+
+
 
     let num = 1
 

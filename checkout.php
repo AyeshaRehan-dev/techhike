@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +20,35 @@
 </head>
 
 <body style="overflow-x: hidden;">
+
+
+    <?php 
+        if(isset($_SESSION['order_done'])){
+    ?>
+
+    <div class="toast-container  position-fixed top-0 end-0 p-3">
+        <!-- Individual Toast -->
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true"
+            data-bs-delay="5000">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Ordered Successfully!
+            </div>
+        </div>
+    </div>
+
+    <?php 
+        }
+
+        unset($_SESSION['order_done']);
+
+            ?>
+
+
 
     <?php
         include './dark-navbar.php';
@@ -193,7 +225,7 @@
     <script>
     let email_input = document.querySelectorAll('.email-input')
     let my_placeholder = document.querySelectorAll('.my-placeholder')
-
+    let toast = document.querySelector('.my-toast')
     email_input.forEach((item, index) => {
         item.addEventListener('input', () => {
             if (item.value.length > 0) {
@@ -205,6 +237,20 @@
             }
         })
     })
+
+
+    if (toast) {
+        setTimeout(() => {
+            toast.style.transition = 'all 0.7s'
+            toast.style.transform = 'translate(-50%,-140%) scale(0)'
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var toastEl = document.querySelector('.toast');
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    });
     </script>
 
 </body>
